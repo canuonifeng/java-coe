@@ -3,7 +3,6 @@ package com.codeages.generic.dao;
 import java.lang.reflect.Field;
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
@@ -25,13 +24,13 @@ public class BaseDao<T extends BaseEntity> {
 			ParameterizedType pType = (ParameterizedType) type;
 			Type claz = pType.getActualTypeArguments()[0];
 			if (claz instanceof Class) {
-				this.clazz = (Class<T>) claz;
+				this.clazz = (Class) claz;
 			}
 		}
 	}
 
-	protected <T> T[] concat(T[] first, T[] second) {
-		T[] result = Arrays.copyOf(first, first.length + second.length);
+	protected <Y> Y[] concat(Y[] first, Y[] second) {
+		Y[] result = Arrays.copyOf(first, first.length + second.length);
 		System.arraycopy(second, 0, result, first.length, second.length);
 		return result;
 	}
@@ -57,9 +56,8 @@ public class BaseDao<T extends BaseEntity> {
 		return name.substring(0, 1).toUpperCase() + name.substring(1);
 	}
 
-	protected <T extends BaseEntity> T mapper(ResultSet rs, T t) throws Exception {
-		Class clazz = t.getClass();
-
+	protected <T extends BaseEntity> T mapper(ResultSet rs) throws Exception {
+		T t = (T)clazz.newInstance();
 		Field[] fields = clazz.getDeclaredFields();
 		Field[] superClassFields = clazz.getSuperclass().getDeclaredFields();
 		Field[] allFields = concat(fields, superClassFields);
@@ -89,16 +87,15 @@ public class BaseDao<T extends BaseEntity> {
 		return t;
 	}
 
-	public <T extends BaseEntity> T get(Long id, String table) throws Exception {
+	public T get(Long id, String table) throws Exception {
 		T entity = null;
 		Connection con = ConnectionFactory.connection();
 		PreparedStatement stat = con.prepareStatement("select * from " + table + " where id = ?");
 		stat.setLong(1, id.longValue());
 		ResultSet rs = stat.executeQuery();
-		T t = (T) this.clazz.newInstance();
 
 		if (rs.next()) {
-			entity = mapper(rs, t);
+			entity = mapper(rs);
 		}
 
 		rs.close();

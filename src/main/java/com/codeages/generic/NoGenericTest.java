@@ -13,9 +13,8 @@ public class NoGenericTest {
 
 	@Test
 	public void testJdbc() throws Exception {
-		Order order = new OrderDao().getOrder(1L);
-		OrderItem orderItem = new OrderItemDao().getOrderItem(2L);
-		
+		Order order = new OrderDao().get(1L, "biz_order");
+		OrderItem orderItem = new OrderItemDao().get(2L, "biz_order_item");
 		OrderItem orderItem1 = new OrderItemDao().get(2L,"biz_order_item");
 		
 		Assert.assertEquals(1L, order.getId().longValue());
