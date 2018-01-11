@@ -8,5 +8,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MethodCost {
+	String value() default "hour"; // 小时 hour，分钟 minute
 	
 }

@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import com.codeages.generic.entity.OrderItem;
 import com.codeages.generic.util.ConnectionFactory;
 
-public class OrderItemDao extends BaseDao{
+public class OrderItemDao extends BaseDao<OrderItem>{
 	public OrderItem getOrderItem(Long id) throws Exception {
 		OrderItem orderItem = null;
 		Connection con = ConnectionFactory.connection();

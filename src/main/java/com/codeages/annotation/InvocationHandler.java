@@ -12,9 +12,17 @@ public class InvocationHandler implements java.lang.reflect.InvocationHandler {
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 		
 		if(object.getClass().isAnnotationPresent(MethodCost.class)) {
+			MethodCost[] methodCosts = object.getClass().getDeclaredAnnotationsByType(MethodCost.class);
+			MethodCost methodCost = methodCosts[0];
+			
 			long start = new Date().getTime();
 			Object result = method.invoke(object, args);
-			System.out.println("cost: " + (new Date().getTime() - start));
+			
+			if ("hour".equals(methodCost.value())) {
+				System.out.println("cost: " + (new Date().getTime() - start));
+			}else if ("minute".equals(methodCost.value())) {
+				System.out.println("cost: " + ((new Date().getTime() - start)*60));
+			}
 			return result;
 		}
 		

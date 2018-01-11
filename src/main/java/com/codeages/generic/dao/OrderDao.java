@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import com.codeages.generic.entity.Order;
 import com.codeages.generic.util.ConnectionFactory;
 
-public class OrderDao extends BaseDao{
+public class OrderDao extends BaseDao<Order>{
 	public Order getOrder(Long id) throws Exception {
 		Order order = null;
 

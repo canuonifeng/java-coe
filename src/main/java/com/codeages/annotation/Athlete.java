@@ -1,6 +1,6 @@
 package com.codeages.annotation;
 
-@MethodCost
+@MethodCost()
 public class Athlete implements People{
 	@Override
 	public void running(Long kilo) throws Exception {

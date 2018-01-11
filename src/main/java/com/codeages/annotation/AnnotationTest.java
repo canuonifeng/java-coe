@@ -12,7 +12,8 @@ public class AnnotationTest {
 	}
 	
 	private People getPeople() {
-		Athlete people= new Athlete();
+		Athlete people = new Athlete();
+		
 		InvocationHandler h = new InvocationHandler(people);
 		return (People)Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class[] {People.class}, h);
 	}
