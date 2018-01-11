@@ -1,6 +1,5 @@
 package com.codeages.annotation;
 
-import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 
 import org.junit.Test;
