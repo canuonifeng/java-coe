@@ -21,5 +21,4 @@ public class NoGenericTest {
 		Assert.assertEquals(2L, orderItem.getId().longValue());
 		Assert.assertEquals(2L, orderItem1.getId().longValue());
 	}
-
 }
