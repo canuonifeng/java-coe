@@ -1,6 +1,10 @@
 package com.codeages.generic.entity;
 
+import com.codeages.generic.annotation.Table;
+
+@Table("biz_order")
 public class Order extends BaseEntity{
+	
 	private String sn;
 	private String title;
 	private String status;

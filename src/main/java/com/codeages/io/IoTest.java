@@ -57,7 +57,5 @@ public class IoTest {
 		inputStream.close();
 		outputStream.close();
 		
-		
-		
 	}
 }

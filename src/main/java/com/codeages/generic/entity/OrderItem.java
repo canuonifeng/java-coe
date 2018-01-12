@@ -1,5 +1,8 @@
 package com.codeages.generic.entity;
 
+import com.codeages.generic.annotation.Table;
+
+@Table("biz_order_item")
 public class OrderItem extends BaseEntity {
 	private String title;
 	private String targetType;

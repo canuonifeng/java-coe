@@ -10,16 +10,15 @@ import java.sql.ResultSet;
 import java.util.Arrays;
 import java.util.Date;
 
+import com.codeages.generic.annotation.Table;
 import com.codeages.generic.entity.BaseEntity;
 import com.codeages.generic.util.ConnectionFactory;
 
-abstract public class BaseDao<T extends BaseEntity> {
-	
-	abstract protected String getTable();
-	
+public class BaseDao<T extends BaseEntity> {
+
 	private Class<T> clazz;
 
-	{
+	public BaseDao() {
 		Type type = getClass().getGenericSuperclass();
 		if (type instanceof ParameterizedType) {
 			ParameterizedType pType = (ParameterizedType) type;
@@ -58,7 +57,7 @@ abstract public class BaseDao<T extends BaseEntity> {
 	}
 
 	protected <T extends BaseEntity> T mapper(ResultSet rs) throws Exception {
-		T t = (T)clazz.newInstance();
+		T t = (T) clazz.newInstance();
 		Field[] fields = clazz.getDeclaredFields();
 		Field[] superClassFields = clazz.getSuperclass().getDeclaredFields();
 		Field[] allFields = concat(fields, superClassFields);
@@ -103,5 +102,10 @@ abstract public class BaseDao<T extends BaseEntity> {
 		stat.close();
 		con.close();
 		return entity;
+	}
+
+	protected String getTable() {
+		Table[] ts = this.clazz.getDeclaredAnnotationsByType(Table.class);
+		return ts[0].value();
 	}
 }
