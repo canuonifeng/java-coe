@@ -1,11 +1,9 @@
 package com.codeages.generic.dao;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.lang.reflect.TypeVariable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -102,19 +100,6 @@ public class BaseDao<T extends BaseEntity> {
 		stat.close();
 		con.close();
 		return entity;
-	}
-
-	private void printType(String name, Type type) {
-		if (type instanceof Class) {
-			System.out.println("the type of " + name + " is : Class");
-		} else if (type instanceof ParameterizedType) {
-			System.out.println("the type of " + name + " is : ParameterizedType");
-		} else if (type instanceof GenericArrayType) {
-			System.out.println("the type of " + name + " is : GenericArrayType");
-		} else if (type instanceof TypeVariable) {
-			System.out.println("the type of " + name + " is : TypeVariable");
-		}
-
 	}
 
 }
