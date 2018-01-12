@@ -13,7 +13,10 @@ import java.util.Date;
 import com.codeages.generic.entity.BaseEntity;
 import com.codeages.generic.util.ConnectionFactory;
 
-public class BaseDao<T extends BaseEntity> {
+abstract public class BaseDao<T extends BaseEntity> {
+	
+	abstract protected String getTable();
+	
 	private Class<T> clazz;
 
 	{
@@ -85,10 +88,10 @@ public class BaseDao<T extends BaseEntity> {
 		return t;
 	}
 
-	public T get(Long id, String table) throws Exception {
+	public T get(Long id) throws Exception {
 		T entity = null;
 		Connection con = ConnectionFactory.connection();
-		PreparedStatement stat = con.prepareStatement("select * from " + table + " where id = ?");
+		PreparedStatement stat = con.prepareStatement("select * from " + getTable() + " where id = ?");
 		stat.setLong(1, id.longValue());
 		ResultSet rs = stat.executeQuery();
 
@@ -101,5 +104,4 @@ public class BaseDao<T extends BaseEntity> {
 		con.close();
 		return entity;
 	}
-
 }
