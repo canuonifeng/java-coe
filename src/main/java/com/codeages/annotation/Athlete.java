@@ -5,6 +5,7 @@ import java.io.Serializable;
 @MethodCost()
 public class Athlete implements People, Serializable {
 	private String name;
+	private String password;
 	
 	public static final long serialVersionUID = 1L;
 
@@ -20,5 +21,13 @@ public class Athlete implements People, Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }
