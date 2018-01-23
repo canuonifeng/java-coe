@@ -2,7 +2,8 @@ package com.codeages.thread;
 
 public class HappenBeforeTest {
 
-	static int x, y, m, n;
+	static int x = 0;
+	static int y = 0, m, n;
 
 	public static void main(String[] args) throws InterruptedException {
 		int count = 10;

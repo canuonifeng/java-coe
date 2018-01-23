@@ -18,6 +18,11 @@ public class AtomicTest {
 }
 
 class AtomicThread extends Thread {
+	private synchronized void aa() {
+		synchronized (this) {
+			
+		}
+	}
 	@Override
 	public void run() {
 		try {
