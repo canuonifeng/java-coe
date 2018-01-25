@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 public class ExecutorTest {
 	public static void main(String[] args) {
 		ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 10, 200, TimeUnit.MILLISECONDS,
-				new ArrayBlockingQueue<Runnable>(5));
+				new ArrayBlockingQueue<Runnable>(5), new ThreadPoolExecutor.AbortPolicy());
 
 		for (int i = 0; i < 15; i++) {
 			MyTask myTask = new MyTask(i);
@@ -17,19 +17,21 @@ public class ExecutorTest {
 			System.out.println("线程池中线程数目：" + executor.getPoolSize() + "，队列中等待执行的任务数目：" + executor.getQueue().size()
 					+ "，已执行玩别的任务数目：" + executor.getCompletedTaskCount());
 		}
-		
-		executor.shutdown();
-		
-		
+
+		executor.shutdownNow();
+		System.out.println("状态：" + executor.isTerminated());
+		System.out.println("状态：" + executor.isShutdown());
+
 		ExecutorService executorService = Executors.newFixedThreadPool(100);
-		
+
 		for (int i = 0; i < 15; i++) {
 			MyTask myTask = new MyTask(i);
 			executorService.execute(myTask);
-			System.out.println("Executors线程池中线程数目：" + executor.getPoolSize() + "，队列中等待执行的任务数目：" + executor.getQueue().size()
-					+ "，已执行玩别的任务数目：" + executor.getCompletedTaskCount());
+			// System.out.println("Executors线程池中线程数目：" + executorService.getPoolSize() +
+			// "，队列中等待执行的任务数目：" + executor.getQueue().size()
+			// + "，已执行玩别的任务数目：" + executorService.getCompletedTaskCount());
 		}
-		
+
 		executorService.shutdown();
 	}
 }

@@ -14,6 +14,7 @@ public class PipedStreamTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		t1.start();
 		t2.start();
 	}
@@ -33,6 +34,8 @@ class Receiver extends Thread {
 			System.out.println("The following message comes from Sender:");
 			System.out.println(new String(buf, 0, len));
 			in.close();
+			
+			System.out.println(new String(buf, 0, len));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -50,6 +53,9 @@ class Sender extends Thread {
 		String strInfo = new String("Hello,Reciever!");
 		try {
 			out.write(strInfo.getBytes());
+			
+			sleep(10000);
+			
 			out.close();
 		} catch (Exception e) {
 			e.printStackTrace();
